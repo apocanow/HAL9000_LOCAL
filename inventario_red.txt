@@ -1,0 +1,15 @@
+El router Orange tiene la IP 192.168.1.1
+El servidor Proxmox 1 tiene la IP 192.168.1.38
+El servidor Proxmox 2 tiene la IP 192.168.1.39
+El servidor DNS1 tiene la IP 192.168.1.1
+El servidor DNS2 tiene la IP 192.168.1.154
+El servidor Homepage tiene la IP 192.168.1.165
+El servidor Mimir tiene la IP 192.168.1.152
+El servidor Prometheus tiene la IP 192.168.1.41
+El servidor ANSIBLE tiene la IP 192.168.1.103
+El servidor de CINE tiene la IP 192.168.1.107
+El servidor TOR tiene la IP 192.168.1.133
+El servidor GITLAB tiene la IP 192.168.1.167
+El servidor AWX tiene la IP 192.168.1.6
+El servidor Zomboid tiene la IP 192.168.1.150
+

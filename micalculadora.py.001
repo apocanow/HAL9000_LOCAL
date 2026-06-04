@@ -1,0 +1,9 @@
+# ~/.telegram_bot_skills/micalculadora.py
+def match(texto):
+    return "suma" in texto or "resta" in texto
+
+def run(texto, contexto):
+    # Procesar y devolver resultado
+    return "El resultado es 42"
+
+

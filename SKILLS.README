@@ -1,0 +1,39 @@
+🤖 Bot de Telegram	✅ Funcionando
+🎤 Voz (Whisper + Piper)	✅ Listo
+🧠 Memoria semántica híbrida	✅ SQLite + FTS5
+📚 RAG local	✅ ChromaDB
+🔧 Comandos Linux automáticos	✅ Skill implementada
+📁 Creación de archivos/carpetas	✅ Skill implementada
+🌤️ Tiempo actual + pronóstico	✅ Skill implementada
+📰 Noticias de internet	✅ Skill implementada
+🛡️ Comandos peligrosos con confirmación	✅ Implementado
+📦 Skills modulares	✅ Sistema funcionando
+__________________________________________________________________
+📝 "noticias de inteligencia artificial"
+📝 "qué noticias hay sobre linux"
+📝 "últimas noticias de tecnología"
+📝 "noticias
+__________________________________________________________________
+
+/noticias linux
+/noticias ia
+/categoria añadir = desarrollo
+/categoria default = tecnología
+
+~/.telegram_bot_skills/
+├── tiempo.py              # Tiempo atmosférico
+├── noticias.py            # Noticias generales
+├── noticias_linux.py      # Noticias específicas Linux
+├── noticias_ia.py         # Noticias específicas IA
+├── comandos_linux.py      # Comandos del sistema
+└── interpretar_comandos.py # Comandos en lenguaje natural
+
+📝 "qué tiempo hace"
+→ Debería decir: 🌤️ Barcelona: ☀️ +24°C
+
+📝 "tiempo en Vilaller"  
+→ 🌤️ Vilaller: ☀️ +16°C
+
+📝 "cómo está el clima en Barcelona"
+→ 🌤️ Barcelona: ☀️ +24°C
+

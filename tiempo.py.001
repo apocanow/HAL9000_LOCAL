@@ -1,0 +1,84 @@
+# ~/.telegram_bot_skills/tiempo.py
+"""
+Skill para consultar el tiempo atmosférico
+"""
+
+import requests
+import json
+import os
+
+UBICACIONES_FILE = os.path.expanduser("~/.telegram_bot_ubicaciones.json")
+
+# Ubicaciones por defecto
+UBICACIONES_DEFECTO = {
+    "default": "Barcelona",
+    "casa": "Vilaller",
+    "trabajo": "Barcelona"
+}
+
+def cargar_ubicaciones():
+    if os.path.exists(UBICACIONES_FILE):
+        try:
+            with open(UBICACIONES_FILE, 'r') as f:
+                return json.load(f)
+        except:
+            return UBICACIONES_DEFECTO.copy()
+    return UBICACIONES_DEFECTO.copy()
+
+def match(texto):
+    texto = texto.lower()
+    palabras = ["tiempo", "clima", "temperatura", "lluvia", "qué tiempo", "cómo está el clima", "qué temperatura hace"]
+    return any(p in texto for p in palabras)
+
+def run(texto, contexto):
+    texto_lower = texto.lower()
+    ubicaciones = cargar_ubicaciones()
+    
+    # Extraer ciudad
+    ciudad = None
+    
+    # 1. Buscar ubicaciones guardadas (casa, trabajo)
+    for nombre, ubicacion in ubicaciones.items():
+        if nombre in texto_lower and nombre != "default":
+            ciudad = ubicacion
+            break
+    
+    # 2. Buscar nombres de ciudades comunes
+    if not ciudad:
+        ciudades_conocidas = ["barcelona", "madrid", "valencia", "sevilla", "vilaller", "zaragoza", "malaga"]
+        for c in ciudades_conocidas:
+            if c in texto_lower:
+                ciudad = c.capitalize()
+                break
+    
+    # 3. Buscar después de "en" o "de"
+    if not ciudad:
+        palabras = texto.split()
+        for i, p in enumerate(palabras):
+            if p.lower() in ["en", "de", "para"] and i+1 < len(palabras):
+                ciudad = palabras[i+1].capitalize()
+                break
+    
+    # 4. Usar ubicación por defecto
+    if not ciudad:
+        ciudad = ubicaciones.get("default", "Barcelona")
+    
+    # Consultar tiempo
+    try:
+        # Usar formato 3 que es más limpio
+        url = f"https://wttr.in/{ciudad}?format=3"
+        response = requests.get(url, timeout=10)
+        
+        if response.status_code == 200:
+            datos = response.text.strip()
+            if datos and "Unknown" not in datos:
+                # Formato 3 devuelve algo como "Barcelona: ☀️ +24°C"
+                return f"🌤️ {datos}"
+            else:
+                return f"❌ No encontré información para '{ciudad}'"
+        else:
+            return f"❌ No pude obtener el tiempo para '{ciudad}'"
+    except Exception as e:
+        return f"❌ Error: {e}"
+
+
